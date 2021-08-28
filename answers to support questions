@@ -1,0 +1,86 @@
+QUESTION 1 : How the team mate should respond to  question :
+
+
+Hello sir,
+Thanks for reaching ouT. We apologise for any inconvinience you have experienced .
+
+Because you have disabled WP Rocket’s automatic cache clearing system, the next option is to use a chron job which can automate this,
+and clear at a specific timeframe and i am going to guide you on this.
+
+To begin, 
+
+Step 1.  
+
+Login to your hosting server and Set up a chron job .
+If you are using cpanel , we have a video to guide you : https://recordit.co/A4Jj1Kg7x9  
+you can also click here to understand more about chron jobs and how to set them up.
+https://docs.wp-rocket.me/article/1279-cron-and-wp-rocket#setting-up-cron-job . Please feel free to discuss more about chron jobs with your host provider
+
+Step 2. 
+
+Once done with step 1, we need to create a php file to help with cache clearing . 
+
+a. you can create a php file with notepad or any editor you have and give it a name ...for example in this example, mine is called clear_cache.php
+b. Since you want to clear the HTML files and Combined/minified CSS/JavaScript files, add this code 
+ 
+<?php
+// Load WordPress.
+require( 'wp-load.php' );
+
+// code to Clear HTML cache files.
+if ( function_exists( 'rocket_clean_domain' ) ) {
+	rocket_clean_domain();
+}
+//code to clear the combined/minified CSS/JavaScript files,  
+ 
+if ( function_exists( 'rocket_clean_minify' ) ) {
+	rocket_clean_minify();
+}
+
+
+Save this file , and upload it to your root folder. ( its where wp-config.php is located)
+
+Step 3:
+Once step 2 is done,  set up the time you would want to run the cache, when there is little activity going on on your site .
+
+Common settings you will find are :
+
+Minute – The minute setting for the cron job.
+Hour – The hour setting for the cron job.
+Day – The day setting for the cron job.
+Month – The month setting for the cron job.
+Weekday – The weekday setting for the cron job.
+
+Next, on the command field, you need to place the exact url to the file we created on step 2.
+
+wget -q -O - http://yourdomain.com/clear_cache.php >/dev/null 2>&1
+
+add the above code, and replace the url part with your actual domain name, and file name 
+
+Save your changes once done .
+
+Kindly let us know if this solution works for you . 
+Looking forward to further engagements
+
+ 
+ 
+ QUESTION 2 
+ 
+ Issue 2 
+ 
+ How the tech support should troubleshoot the issue 
+ 
+ 1- Send the client this link first to understand how to troubleshoot chron job issues  : 
+  
+ For a better understanding, Have a look the common issues related to Cron https://docs.wp-rocket.me/article/1279-cron-and-wp-rocket#cron-related-issues
+ 
+ 
+ Since we have access to cpanel, the support should check for the following.
+ 
+ 1.check on the root of project if a chron job php file was added, and open it to confirm if the code was well written as guided earlier.
+ 2.confirm if the WP- chron is disabled , and that the command url for the chron job is well placed , and changes were saved.
+ 3.check for the php error log and find out if there is any conflicting errors showing 
+ 
+ If the code , and setting up is well done,Request the client to contact the hosting provider for a more closer look on the chron job and settings and get back to us 
+ 
+ 
